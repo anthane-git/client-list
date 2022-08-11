@@ -1,0 +1,6 @@
+[submodule "api"]
+	path = api
+	url = git@github.com:anthane-git/client-list-api.git
+[submodule "view"]
+	path = view
+	url = git@github.com:anthane-git/client-list-view.git
