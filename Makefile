@@ -1,4 +1,5 @@
-.PHONY: update update-all all
+.PHONY: default update update-all all
+default: all ;
 
 update:
 	git pull origin main
@@ -6,5 +7,6 @@ update:
 
 update-all: update
 	git submodule foreach git pull origin main
+	git submodule foreach git checkout main
 
 all: update-all
