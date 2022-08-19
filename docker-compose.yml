@@ -13,7 +13,7 @@ services:
         networks:
             - public
         ports:
-            - 8080:80
+            - 8040:80
 
     react:
         image: view
@@ -69,10 +69,10 @@ services:
         ports:
             - 3306:3306
         environment:
-            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ROOT_PASSWORD: password
             MYSQL_ROOT_HOST: "%"
-            MYSQL_DATABASE: '${DB_DATABASE:-client_list}'
-            MYSQL_USER: '${DB_USERNAME:-root}'
+            MYSQL_DATABASE: client_list
+            MYSQL_USER: root
             MYSQL_PASSWORD: password
         env_file:
             - ./api/.env
@@ -82,7 +82,7 @@ services:
         networks:
             - sail
         healthcheck:
-            test: [ "CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}" ]
+            test: [ "CMD", "mysqladmin", "ping", "-p password" ]
             retries: 3
             timeout: 5s
 
