@@ -19,15 +19,11 @@ services:
         image: view
         build:
             context: ./view
-            dockerfile: Dockerfile
+            dockerfile: Dockerfile.production
         container_name: cl-react
         restart: always
         ports:
             - 4000:5000
-        env_file:
-            - ./view/.env.development
-        volumes:
-            - ./view:/app
         stdin_open: true
         tty: true
         networks:
@@ -37,23 +33,14 @@ services:
     laravel:
         build:
             context: ./api
-            dockerfile: Dockerfile
-            args:
-                WWWGROUP: 1000
+            dockerfile: Dockerfile.production
         container_name: cl-laravel
         image: sail-8.1/app
-        extra_hosts:
-            - host.docker.internal:host-gateway
         ports:
             - 4500:80
             - 4600:8080
-        environment:
-            WWWUSER: 1000
-            LARAVEL_SAIL: 1
-            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
-            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
         volumes:
-            - ./api:/var/www/html
+            - ./api/storage:/app/storage
         networks:
             - sail
             - public
